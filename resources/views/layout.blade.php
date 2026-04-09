@@ -8,7 +8,10 @@
     @vite('resources/css/app.css')
     <title>Stock</title>
 </head>
-<body>
-@yield('content')
+<body class="md:flex">
+    @include('navigation')
+    <main class="w-full sm:w-3/4 bg-gray-50">
+        @yield('content')
+    </main>
 </body>
 </html>

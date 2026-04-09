@@ -1,0 +1,32 @@
+<aside class="bg-gray-900 md:h-screen p-5 md:w-1/4">
+    <header>
+        <div class="flex justify-around items-center py-3">
+            <a href="{{ route('supply.index') }}"
+               class="flex text-white font-bold tracking-widest justify-center text-5xl">
+                <span>Stock</span>
+            </a>
+            <label for="toggle" class="md:hidden">
+                <i class="fa-solid fa-bars text-white text-2xl"></i>
+            </label>
+        </div>
+        <input type="checkbox" class="toggle" id="toggle" hidden>
+        <nav class="md:!flex flex-col gap-3 opacity-95 text-white">
+            <a class="flex gap-3 items-center">
+                <i class="fa-solid fa-truck"></i>
+                <span>Поставки</span>
+            </a>
+            <a class="flex gap-3 items-center">
+                <i class="fa-solid fa-box"></i>
+                <span>Продукты</span>
+            </a>
+            <a class="flex gap-3 items-center">
+                <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                <span>Операции</span>
+            </a>
+            <a class="flex gap-3 items-center">
+                <i class="fa-solid fa-utensils"></i>
+                <span>Рецепты</span>
+            </a>
+        </nav>
+    </header>
+</aside>
