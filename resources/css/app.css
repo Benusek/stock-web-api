@@ -20,6 +20,14 @@ nav {
     display: flex;
 }
 
+.filter-menu {
+    display: none;
+}
+
+#filter:checked ~ .filter-menu {
+    display: block;
+}
+
 /** Forms **/
 input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: none;

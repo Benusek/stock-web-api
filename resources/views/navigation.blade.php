@@ -1,7 +1,7 @@
-<aside class="bg-gray-900 md:h-screen p-5 md:w-1/4">
+<aside class="bg-gray-900 p-5 md:w-1/4">
     <header>
         <div class="flex justify-around items-center py-3">
-            <a href="{{ route('supply.index') }}"
+            <a href="{{ route('supplies.index') }}"
                class="flex text-white font-bold tracking-widest justify-center text-5xl">
                 <span>Stock</span>
             </a>
@@ -11,13 +11,13 @@
         </div>
         <input type="checkbox" class="toggle" id="toggle" hidden>
         <nav class="md:!flex flex-col gap-3 opacity-95 text-white">
-            <a class="flex gap-3 items-center">
+            <a href="{{ route('supplies.index') }}" class="flex gap-3 items-center">
                 <i class="fa-solid fa-truck"></i>
                 <span>Поставки</span>
             </a>
             <a class="flex gap-3 items-center">
                 <i class="fa-solid fa-box"></i>
-                <span>Продукты</span>
+                <span>Товары</span>
             </a>
             <a class="flex gap-3 items-center">
                 <i class="fa-solid fa-arrow-right-arrow-left"></i>

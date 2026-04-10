@@ -8,9 +8,9 @@
     @vite('resources/css/app.css')
     <title>Stock</title>
 </head>
-<body class="md:flex">
+<body class="md:flex min-h-screen bg-gray-50">
     @include('navigation')
-    <main class="w-full sm:w-3/4 bg-gray-50">
+    <main class="w-full md:w-3/4">
         @yield('content')
     </main>
 </body>
