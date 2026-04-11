@@ -3,11 +3,11 @@
 @section('content')
     <section class="px-5 py-2 w-full">
         <!--Advanced-->
-        <div class="flex items-center justify-between mb-2">
+        <div class="flex justify-between mb-2 items-center">
             <label for="filter"><i class="fa-solid fa-filter text-gray-500 cursor-pointer"></i></label>
-            <a href="{{ route('supplies.create') }}" class="flex items-center bg-gray-600 text-white px-4 h-10 rounded-lg hover:bg-gray-700 transition gap-2">
+            <a href="{{ route('products.create') }}" class="flex items-center bg-gray-600 text-white px-4 h-10 rounded-lg hover:bg-gray-700 transition gap-2">
                 <i class="fa-solid fa-plus text-white"></i>
-                <span>Добавить поставку</span>
+                <span>Добавить товары</span>
             </a>
         </div>
 
@@ -21,7 +21,7 @@
                 </label>
                 <div class="relative">
                     <input type="search" name="search"
-                           placeholder="Номер поставки или товар"
+                           placeholder="Название товара"
                            class="w-full h-11 pl-10 pr-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
                     <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
                 </div>
@@ -45,16 +45,6 @@
                 </span>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div>
-                        <label class="block text-xs text-gray-500 mb-1">Статус</label>
-                        <select name="status"
-                                class="w-full h-10 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
-                            <option value="">Все статусы</option>
-                            <option value="completed">Проведена</option>
-                            <option value="canceled">Отменена</option>
-                            <option value="draft">Черновик</option>
-                        </select>
-                    </div>
                     <div>
                         <label class="block text-xs text-gray-500 mb-1">Поставщик</label>
                         <select name="supplier"
@@ -104,43 +94,42 @@
             </div>
         </form>
 
-        <!--Supplies cards-->
+        <!--Products cards-->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-            <div class="bg-white border border-gray-200 rounded-2xl p-4 hover:shadow-md transition max-w-lg">
+            <div class="bg-white border border-gray-200 rounded-2xl p-4 hover:shadow-md transition flex flex-col justify-between">
                 <div class="flex justify-between items-start mb-3">
+                    <!-- Название -->
                     <div>
-                        <p class="text-xs text-gray-400">Поставка</p>
-                        <p class="text-lg font-semibold text-gray-900">#10234</p>
+                        <p class="text-lg font-semibold text-gray-900">
+                            Ром Bacardi
+                        </p>
+                        <p class="text-xs text-gray-400">
+                            Продукт
+                        </p>
                     </div>
-                    <span class="text-xs px-3 py-1 rounded-full bg-green-100 text-green-700">
-                        Проведена
-                    </span>
+                    <!-- Actions -->
+                    <div class="flex gap-2">
+                        <button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition">
+                            <i class="fa-solid fa-edit text-gray-600 text-sm"></i>
+                        </button>
+                        <button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-red-50 transition">
+                            <i class="fa-solid fa-trash text-red-500 text-sm"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="space-y-2 mb-4">
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-500">Поставщик</span>
-                        <span class="text-gray-900 font-medium">ООО Колбасики</span>
+                <div class="space-y-2 text-sm">
+                    <div class="flex justify-between">
+                        <span class="text-gray-500">Тип</span>
+                        <span class="text-gray-900 font-medium">Ингредиент</span>
                     </div>
-
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-500">Создал</span>
-                        <span class="text-gray-900">Иван Иванов</span>
+                    <div class="flex justify-between">
+                        <span class="text-gray-500">Ед. измерения</span>
+                        <span class="text-gray-900">Литр</span>
                     </div>
-
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-500">Дата</span>
-                        <span class="text-gray-900">12.04.2026</span>
+                    <div class="flex justify-between">
+                        <span class="text-gray-500">Остаток</span>
+                        <span class="text-gray-900 font-medium">15 л</span>
                     </div>
-
-                </div>
-                <div class="flex justify-between items-center pt-3 border-t border-gray-100">
-                    <div>
-                        <p class="text-xs text-gray-400">Сумма</p>
-                        <p class="text-lg font-semibold text-gray-900">24 500 ₽</p>
-                    </div>
-                    <a href="{{ route('supplies.show') }}" class="text-sm text-blue-600 hover:underline">
-                        Подробнее
-                    </a>
                 </div>
             </div>
         </div>
