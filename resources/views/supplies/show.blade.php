@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <section class="px-5 py-2 w-full">
+    <section class="p-5 w-full">
         <div class="bg-white border border-gray-200 rounded-2xl p-6 mb-6">
             <div class="flex justify-between items-start mb-4">
                 <div>
@@ -39,7 +39,7 @@
                         Вернуться
                     </a>
                     <div class="flex gap-2 w-full md:w-min">
-                        <a href="" class="h-10 w-full md:w-min px-4 rounded-lg border border-yellow-300 text-yellow-600 hover:bg-gray-50 transition cursor-pointer flex justify-center items-center">
+                        <a href="{{ route('supplies.edit') }}" class="h-10 w-full md:w-min px-4 rounded-lg border border-yellow-300 text-yellow-600 hover:bg-gray-50 transition cursor-pointer flex justify-center items-center">
                             <i class="fa-solid fa-edit"></i>
                         </a>
                         <a href="" class="h-10 w-full md:w-min px-4 rounded-lg border border-red-300 text-red-600 hover:bg-gray-50 transition cursor-pointer flex justify-center items-center">

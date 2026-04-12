@@ -21,7 +21,7 @@
             <i class="fa-solid fa-box"></i>
             <span>Товары</span>
         </a>
-        <a class="flex gap-3 items-center px-3 py-2 rounded-lg hover:bg-gray-800 transition">
+        <a href="{{ route('actions.index') }}" class="flex gap-3 items-center px-3 py-2 rounded-lg hover:bg-gray-800 transition">
             <i class="fa-solid fa-arrow-right-arrow-left"></i>
             <span>Операции</span>
         </a>

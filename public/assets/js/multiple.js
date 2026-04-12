@@ -2,7 +2,7 @@ let productIndex = 0;
 const products = document.getElementById('products');
 
 function addProduct() {
-    if (productIndex < 12) {
+    if (productIndex < 6) {
         const template = document.getElementById('product-template').innerHTML;
         const html = template.replaceAll('INDEX', productIndex);
         products.insertAdjacentHTML('beforeend', html);

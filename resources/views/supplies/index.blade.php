@@ -1,11 +1,18 @@
 @extends('layout')
 
 @section('content')
-    <section class="px-5 py-2 w-full">
+    <section class="p-5 w-full">
         <!--Advanced-->
-        <div class="flex items-center justify-between mb-2">
-            <label for="filter"><i class="fa-solid fa-filter text-gray-500 cursor-pointer"></i></label>
-            <a href="{{ route('supplies.create') }}" class="flex items-center bg-gray-600 text-white px-4 h-10 rounded-lg hover:bg-gray-700 transition gap-2">
+        <div class="flex justify-between mb-4 flex-wrap-reverse gap-4">
+            <div class="flex items-center gap-3 select-none">
+                <h1 class="text-xl font-semibold text-gray-900">Поставки</h1>
+                <label for="filter"
+                       class="flex items-center gap-2 text-gray-500 cursor-pointer hover:text-gray-700 transition">
+                    <i class="fa-solid fa-filter"></i>
+                    <span class="text-sm">Фильтры</span>
+                </label>
+            </div>
+            <a href="{{ route('supplies.create') }}" class="w-full md:w-max flex justify-center items-center font-semibold bg-green-600 text-white px-4 h-10 rounded-lg hover:bg-green-700 transition gap-2">
                 <i class="fa-solid fa-plus text-white"></i>
                 <span>Добавить поставку</span>
             </a>
@@ -105,16 +112,14 @@
         </form>
 
         <!--Supplies cards-->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             <div class="bg-white border border-gray-200 rounded-2xl p-4 hover:shadow-md transition max-w-lg">
                 <div class="flex justify-between items-start mb-3">
                     <div>
                         <p class="text-xs text-gray-400">Поставка</p>
                         <p class="text-lg font-semibold text-gray-900">#10234</p>
                     </div>
-                    <span class="text-xs px-3 py-1 rounded-full bg-green-100 text-green-700">
-                        Проведена
-                    </span>
+                    <span class="text-xs px-3 py-1 rounded-full bg-green-100 text-green-700">Проведена</span>
                 </div>
                 <div class="space-y-2 mb-4">
                     <div class="flex justify-between text-sm">

@@ -1,11 +1,18 @@
 @extends('layout')
 
 @section('content')
-    <section class="px-5 py-2 w-full">
+    <section class="p-5 w-full">
         <!--Advanced-->
-        <div class="flex justify-between mb-2 items-center">
-            <label for="filter"><i class="fa-solid fa-filter text-gray-500 cursor-pointer"></i></label>
-            <a href="{{ route('products.create') }}" class="flex items-center bg-gray-600 text-white px-4 h-10 rounded-lg hover:bg-gray-700 transition gap-2">
+        <div class="flex justify-between mb-4 flex-wrap-reverse gap-4">
+            <div class="flex items-center gap-3 select-none">
+                <h1 class="text-xl font-semibold text-gray-900">Товары</h1>
+                <label for="filter"
+                       class="flex items-center gap-2 text-gray-500 cursor-pointer hover:text-gray-700 transition">
+                    <i class="fa-solid fa-filter"></i>
+                    <span class="text-sm">Фильтры</span>
+                </label>
+            </div>
+            <a href="{{ route('products.create') }}" class="w-full md:w-max flex justify-center items-center font-semibold bg-green-600 text-white px-4 h-10 rounded-lg hover:bg-green-700 transition gap-2">
                 <i class="fa-solid fa-plus text-white"></i>
                 <span>Добавить товары</span>
             </a>
@@ -26,19 +33,6 @@
                     <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
                 </div>
             </div>
-
-            <div class="mb-6">
-                <span class="block text-sm font-medium text-gray-700 mb-2">
-                  Период
-                </span>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <input type="date" name="start"
-                           class="h-11 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
-                    <input type="date" name="end"
-                           class="h-11 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
-                </div>
-            </div>
-
             <div class="mb-6">
                 <span class="block text-sm font-medium text-gray-700 mb-2">
                 Фильтры
@@ -46,39 +40,52 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div>
-                        <label class="block text-xs text-gray-500 mb-1">Поставщик</label>
-                        <select name="supplier"
+                        <label class="block text-xs text-gray-500 mb-1">Тип</label>
+                        <select name="type"
                                 class="w-full h-10 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
-                            <option value="">Все поставщики</option>
-                            <option value="1">ООО Колбасики</option>
-                            <option value="2">ООО Помидорчики</option>
+                            <option value="">Все</option>
+                            <option value="1">Ингридиент</option>
+                            <option value="2">Рецепт</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs text-gray-500 mb-1">
-                            Создал
-                        </label>
-
-                        <select name="user_id"
-                                class="w-full h-10 px-3 rounded-lg border border-gray-300 focus:ring-1 focus:ring-blue-500 outline-none">
-                            <option value="">Все пользователи</option>
-                            <option value="1">Иван Иванов</option>
-                            <option value="2">Петр Петров</option>
-                            <option value="3">Анна Смирнова</option>
+                        <label class="block text-xs text-gray-500 mb-1">Ед.</label>
+                        <select name="type"
+                                class="w-full h-10 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+                            <option value="">Все</option>
+                            <option value="1">Кусок</option>
+                            <option value="2">Литр</option>
+                            <option value="3">Киллограм</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs text-gray-500 mb-1">Сумма</label>
+                        <label class="block text-xs text-gray-500 mb-1">Наличие</label>
+                        <select name="stock_status" class="w-full h-10 px-3 rounded-lg border border-gray-300
+                       focus:ring-2 focus:ring-blue-500 outline-none">
+                            <option value="">Все</option>
+                            <option value="ok">В наличии</option>
+                            <option value="low">Мало</option>
+                            <option value="out">Нет</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-6">
+                <span class="block text-sm font-medium text-gray-700 mb-2">Остатки</span>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1">Количество</label>
                         <div class="flex gap-2">
-                            <input type="number" name="min"
+                            <input type="number" name="min_stock"
                                    placeholder="От"
-                                   class="w-full h-10 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
-                            <input type="number" name="max"
+                                   class="w-full h-10 px-3 rounded-lg border border-gray-300
+                        focus:ring-2 focus:ring-blue-500 outline-none">
+                            <input type="number" name="max_stock"
                                    placeholder="До"
-                                   class="w-full h-10 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+                                   class="w-full h-10 px-3 rounded-lg border border-gray-300
+                        focus:ring-2 focus:ring-blue-500 outline-none">
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="flex items-center justify-between pt-4 border-t border-gray-100">
@@ -95,29 +102,23 @@
         </form>
 
         <!--Products cards-->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             <div class="bg-white border border-gray-200 rounded-2xl p-4 hover:shadow-md transition flex flex-col justify-between">
                 <div class="flex justify-between items-start mb-3">
-                    <!-- Название -->
                     <div>
-                        <p class="text-lg font-semibold text-gray-900">
-                            Ром Bacardi
-                        </p>
-                        <p class="text-xs text-gray-400">
-                            Продукт
-                        </p>
+                        <p class="text-lg font-semibold text-gray-900">Ром Bacardi</p>
+                        <p class="text-xs text-gray-400">Продукт</p>
                     </div>
-                    <!-- Actions -->
                     <div class="flex gap-2">
-                        <button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition">
+                        <a href="{{ route('products.edit') }}" class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition">
                             <i class="fa-solid fa-edit text-gray-600 text-sm"></i>
-                        </button>
+                        </a>
                         <button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-red-50 transition">
                             <i class="fa-solid fa-trash text-red-500 text-sm"></i>
                         </button>
                     </div>
                 </div>
-                <div class="space-y-2 text-sm">
+                <div class="space-y-2 text-sm mb-4">
                     <div class="flex justify-between">
                         <span class="text-gray-500">Тип</span>
                         <span class="text-gray-900 font-medium">Ингредиент</span>
@@ -130,6 +131,10 @@
                         <span class="text-gray-500">Остаток</span>
                         <span class="text-gray-900 font-medium">15 л</span>
                     </div>
+                </div>
+                <div class="flex justify-between items-center pt-3 border-t border-gray-100 text-xs text-gray-500">
+                    <span>12.04.2026, 14:32</span>
+                    <span>Иван Иванов</span>
                 </div>
             </div>
         </div>

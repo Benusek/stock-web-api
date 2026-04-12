@@ -16,6 +16,11 @@ class SupplyController extends Controller
         return view('supplies.show');
     }
 
+    public function edit()
+    {
+        return view('supplies.edit');
+    }
+
     public function create()
     {
         return view('supplies.create');

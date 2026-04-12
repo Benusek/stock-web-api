@@ -2,7 +2,7 @@
 @extends('layout')
 
 @section('content')
-    <section class="px-5 py-2 w-full">
+    <section class="p-5 w-full">
         <p class="block font-medium text-gray-700 p-2 mb-3 text-3xl">Создание поставки</p>
         <form action="#" method="POST" novalidate
               class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-4">
@@ -29,17 +29,18 @@
                             <option value="2">ООО Помидорчики</option>
                         </select>
                     </div>
-
                 </div>
             </div>
-            <div class="flex justify-between">
-                <p class="block text-sm font-medium text-gray-700 mb-2">Товары</p>
-                <div class="select-none">
-                    <i class="text-sm text-gray-700 fa-solid fa-plus cursor-pointer" onclick="addProduct()"></i>
-                    <i class="text-sm text-gray-700 fa-solid fa-minus cursor-pointer" onclick="removeProduct()"></i>
+            <div class="mb-6">
+                <div class="flex justify-between">
+                    <p class="block text-sm font-medium text-gray-700 mb-2">Товары</p>
+                    <div class="select-none">
+                        <i class="text-sm text-gray-700 fa-solid fa-plus cursor-pointer" onclick="addProduct()"></i>
+                        <i class="text-sm text-gray-700 fa-solid fa-minus cursor-pointer" onclick="removeProduct()"></i>
+                    </div>
                 </div>
+                <div class="select-none" id="products"></div>
             </div>
-            <div class="select-none" id="products"></div>
             <div class="flex justify-between flex-col sm:flex-row pt-4 border-t border-gray-100 gap-2">
                 <div class="flex gap-2 justify-between">
                     <a href="{{ route('supplies.index') }}"
@@ -60,24 +61,7 @@
 
     </section>
 
-    <template id="product-template">
-        <div class="grid grid-cols-2 gap-3 mb-3">
-            <div>
-                <label class="block text-xs text-gray-500 mb-1">Название</label>
-                <select name="items[INDEX][unit]"
-                        class="w-full h-10 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
-                    <option value="liter">Скотч</option>
-                    <option value="piece">Говядина</option>
-                    <option value="kg">Сыр</option>
-                </select>
-            </div>
-            <div>
-                <label class="block text-xs text-gray-500 mb-1">Кол-во</label>
-                <input type="number" name="items[INDEX][quantity]"
-                       class="w-full h-10 pl-4 pr-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
-            </div>
-        </div>
-    </template>
+    @include('templates.product')
 
     <script type="application/javascript" src="{{ asset('assets/js/multiple.js') }}"></script>
 @endsection
