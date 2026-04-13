@@ -102,7 +102,7 @@
         </form>
 
         <!--Products cards-->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="grid grid-cols-full sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-3">
             <div class="bg-white border border-gray-200 rounded-2xl p-4 hover:shadow-md transition flex flex-col justify-between">
                 <div class="flex justify-between items-start mb-3">
                     <div>

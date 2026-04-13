@@ -10,7 +10,7 @@
 </head>
 <body class="md:flex min-h-screen bg-gray-50">
     @include('navigation')
-    <main class="w-full md:w-3/4">
+    <main class="w-full">
         @yield('content')
     </main>
 </body>

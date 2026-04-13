@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('supply', function (Blueprint $table) {
+        Schema::create('supplies', function (Blueprint $table) {
             $table->id();
-            $table->integer('price');
-            $table->enum('unit', ['canceled', 'draft', 'completed'])->default('draft');
+            $table->enum('status', ['canceled', 'draft', 'completed'])->default('draft');
             $table->foreignId('supplier_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

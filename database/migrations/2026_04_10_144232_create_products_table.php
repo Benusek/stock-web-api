@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->enum('unit', ['kg', 'liter', 'piece']);
-            $table->enum('type', ['ingredient', 'completed']);
+            $table->enum('type', ['ingredient', 'finished']);
             $table->float('quantity');
             $table->timestamps();
         });

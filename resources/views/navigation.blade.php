@@ -1,4 +1,4 @@
-<aside class="bg-gray-900 p-5 md:w-1/4">
+<aside class="bg-gray-900 p-6 w-full md:w-60 lg:w-64 xl:w-72">
     <header>
         <div class="flex justify-around items-center py-3">
             <a href="{{ route('supplies.index') }}"

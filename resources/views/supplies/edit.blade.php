@@ -1,3 +1,8 @@
+@php use App\Models\Supply; @endphp
+@php
+/** @var Supply $supply */
+@endphp
+
 @extends('layout')
 
 @section('content')
@@ -5,7 +10,7 @@
         <div class="flex flex-col bg-white border border-gray-200 rounded-2xl p-6">
             <div class="flex justify-between items-center mb-6">
                 <div>
-                    <h1 class="text-xl font-semibold">Поставка #10234</h1>
+                    <h1 class="text-xl font-semibold">Поставка #{{ $supply->id }}</h1>
                     <p class="text-sm text-gray-500">Редактирование</p>
                 </div>
                 <div class="flex items-start">
@@ -50,7 +55,7 @@
                 <div class="select-none" id="products"></div>
             </div>
             <div class="flex sm:justify-end gap-2 border-t border-gray-100 pt-4">
-                <a href="{{ route('supplies.show') }}"
+                <a href="{{ route('supplies.show', $supply) }}"
                    class="h-10 w-full md:w-min px-4 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 transition cursor-pointer flex justify-center items-center">
                     Отмена
                 </a>

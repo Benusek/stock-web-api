@@ -1,3 +1,8 @@
+@php use Illuminate\Database\Eloquent\Collection;use App\Enums\Supply\Status @endphp
+@php
+    /** @var Collection $supplies */
+@endphp
+
 @extends('layout')
 
 @section('content')
@@ -12,7 +17,8 @@
                     <span class="text-sm">Фильтры</span>
                 </label>
             </div>
-            <a href="{{ route('supplies.create') }}" class="w-full md:w-max flex justify-center items-center font-semibold bg-green-600 text-white px-4 h-10 rounded-lg hover:bg-green-700 transition gap-2">
+            <a href="{{ route('supplies.create') }}"
+               class="w-full md:w-max flex justify-center items-center font-semibold bg-green-600 text-white px-4 h-10 rounded-lg hover:bg-green-700 transition gap-2">
                 <i class="fa-solid fa-plus text-white"></i>
                 <span>Добавить поставку</span>
             </a>
@@ -75,7 +81,6 @@
                         <label class="block text-xs text-gray-500 mb-1">
                             Создал
                         </label>
-
                         <select name="user_id"
                                 class="w-full h-10 px-3 rounded-lg border border-gray-300 focus:ring-1 focus:ring-blue-500 outline-none">
                             <option value="">Все пользователи</option>
@@ -103,7 +108,6 @@
                         class="h-10 px-4 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 transition cursor-pointer">
                     Сбросить
                 </button>
-
                 <button type="submit"
                         class="h-10 px-6 rounded-lg bg-gray-600 text-white hover:bg-gray-700 transition shadow-sm cursor-pointer">
                     Применить
@@ -112,42 +116,41 @@
         </form>
 
         <!--Supplies cards-->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            <div class="bg-white border border-gray-200 rounded-2xl p-4 hover:shadow-md transition max-w-lg">
-                <div class="flex justify-between items-start mb-3">
-                    <div>
-                        <p class="text-xs text-gray-400">Поставка</p>
-                        <p class="text-lg font-semibold text-gray-900">#10234</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+            @foreach($supplies as $supply)
+                <div class="bg-white border border-gray-200 rounded-2xl p-4 hover:shadow-md transition">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <p class="text-xs text-gray-400">Поставка</p>
+                            <p class="text-lg font-semibold text-gray-900">#{{ $supply->id }}</p>
+                        </div>
+                        <span class="text-xs px-3 py-1 rounded-full {{ Status::from($supply->status)->classes() }}">{{ Status::from($supply->status)->label() }}</span>
                     </div>
-                    <span class="text-xs px-3 py-1 rounded-full bg-green-100 text-green-700">Проведена</span>
+                    <div class="space-y-2 mb-4">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">Поставщик</span>
+                            <span class="text-gray-900 font-medium">{{ $supply->supplier->name }}</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">Создал</span>
+                            <span class="text-gray-900">{{ $supply->user->name }}</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">Дата</span>
+                            <span class="text-gray-900">{{ $supply->created_at->diffForHumans() }}</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center pt-3 border-t border-gray-100">
+                        <div>
+                            <p class="text-xs text-gray-400">Сумма</p>
+                            <p class="text-lg font-semibold text-gray-900">{{ $supply->supplies->sum('price') }} ₽</p>
+                        </div>
+                        <a href="{{ route('supplies.show', $supply) }}" class="text-sm text-blue-600 hover:underline">
+                            Подробнее
+                        </a>
+                    </div>
                 </div>
-                <div class="space-y-2 mb-4">
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-500">Поставщик</span>
-                        <span class="text-gray-900 font-medium">ООО Колбасики</span>
-                    </div>
-
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-500">Создал</span>
-                        <span class="text-gray-900">Иван Иванов</span>
-                    </div>
-
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-500">Дата</span>
-                        <span class="text-gray-900">12.04.2026</span>
-                    </div>
-
-                </div>
-                <div class="flex justify-between items-center pt-3 border-t border-gray-100">
-                    <div>
-                        <p class="text-xs text-gray-400">Сумма</p>
-                        <p class="text-lg font-semibold text-gray-900">24 500 ₽</p>
-                    </div>
-                    <a href="{{ route('supplies.show') }}" class="text-sm text-blue-600 hover:underline">
-                        Подробнее
-                    </a>
-                </div>
-            </div>
+            @endforeach
         </div>
     </section>
 @endsection
