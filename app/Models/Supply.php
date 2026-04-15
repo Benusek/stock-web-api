@@ -64,4 +64,19 @@ class Supply extends Model
     {
         return $this->belongsToMany(Product::class, 'supply_products', 'supply_id', 'product_id');
     }
+
+    public function scopeFilter($q, $filters)
+    {
+        return $q
+            ->when($filters['search'] ?? null, fn($request, $str) => $request->where('id', $str)->orWhereHas('products', function($request) use($filters) {
+                $request->where('name', 'like', '%' . $filters['search'] . '%');
+            }))
+            ->when($filters['start'] ?? null, fn($request, $date) => $request->whereDate('created_at', '>=', $date))
+            ->when($filters['end'] ?? null, fn($request, $date) => $request->whereDate('created_at', '<=', $date))
+            ->when($filters['status'] ?? null, fn($request, $status) => $request->where('status', $status))
+            ->when($filters['supplier_id'] ?? null, fn($request, $supplier) => $request->where('supplier_id', $supplier))
+            ->when($filters['user_id'] ?? null, fn($request, $user) => $request->where('user_id', $user))
+            ->when($filters['min'] ?? null, fn($request, $min) => $request->having('total_price', '>=', $min))
+            ->when($filters['max'] ?? null, fn($request, $max) => $request->having('total_price', '<=', $max));
+    }
 }

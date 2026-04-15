@@ -44,11 +44,11 @@
                     </a>
                     <div class="flex gap-2 w-full md:w-min">
                         <a href="{{ route('supplies.edit', $supply) }}"
-                           class="h-10 w-full md:w-min px-4 rounded-lg border border-yellow-300 text-yellow-600 hover:bg-gray-50 transition cursor-pointer flex justify-center items-center">
+                           class="h-10 w-full md:w-min px-4 rounded-lg text-yellow-600 hover:bg-gray-50 transition cursor-pointer flex justify-center items-center">
                             <i class="fa-solid fa-edit"></i>
                         </a>
                         <a href=""
-                           class="h-10 w-full md:w-min px-4 rounded-lg border border-red-300 text-red-600 hover:bg-gray-50 transition cursor-pointer flex justify-center items-center">
+                           class="h-10 w-full md:w-min px-4 rounded-lg text-red-600 hover:bg-red-50 transition cursor-pointer flex justify-center items-center">
                             <i class="fa-solid fa-trash"></i>
                         </a>
                     </div>

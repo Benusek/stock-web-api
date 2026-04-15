@@ -15,7 +15,12 @@ class SupplyController extends Controller
      */
     public function index(): Factory|View
     {
-        return view('supplies.index', ['supplies' => Supply::query()->orderBy('id', 'DESC')->get()]);
+        $supplies = Supply::filter(request()->all())
+            ->withSum('supplies as total_price', 'price')
+            ->with(['supplier', 'user', 'products'])
+            ->orderBy('id', 'DESC')
+            ->paginate(10);
+        return view('supplies.index', compact('supplies'));
     }
 
     /**
@@ -38,7 +43,11 @@ class SupplyController extends Controller
         return view('supplies.edit', compact('supply'));
     }
 
-    public function create()
+    /**
+     * Create supply form
+     * @return Factory|View
+     */
+    public function create(): Factory|View
     {
         return view('supplies.create');
     }

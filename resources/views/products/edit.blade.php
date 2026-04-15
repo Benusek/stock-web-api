@@ -1,3 +1,8 @@
+@php use App\Models\Product; @endphp
+@php
+    /** @var Product $product */
+@endphp
+
 @extends('layout')
 
 @section('content')
@@ -5,25 +10,24 @@
         <div class="flex flex-col bg-white border border-gray-200 rounded-2xl p-6 mb-4">
             <div class="flex justify-between items-center mb-6">
                 <div>
-                    <h1 class="text-xl font-semibold text-gray-900">Ром Bacardi</h1>
-                    <p class="text-sm text-gray-500">Редактирование товара</p>
+                    <h1 class="text-xl font-semibold text-gray-900">Товар</h1>
+                    <p class="text-sm text-gray-500">Редактирование</p>
                 </div>
                 <div class="flex text-sm flex-col items-end">
                     <p class="text-sm text-gray-500">Создан</p>
-                    <p class="block font-medium text-gray-900"> 12 января 2025 года</p>
-                    <p class="block font-medium text-gray-900">Иван Иванов</p>
+                    <p class="block font-medium text-gray-900">{{ $product->created_at->diffForHumans() }}</p>
                 </div>
             </div>
             <span class="block text-sm font-medium text-gray-700 mb-2">Основное</span>
             <div class="grid grid-cols-full sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                 <div>
                     <label class="block text-xs text-gray-500 mb-1">Название</label>
-                    <input type="text" name="items[INDEX][name]" placeholder="Сыр"
+                    <input type="text" name="items[INDEX][name]" placeholder="Сыр" value="{{ $product->name }}"
                            class="w-full h-10 pl-4 pr-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
                 </div>
                 <div>
                     <label class="block text-xs text-gray-500 mb-1">Кол-во</label>
-                    <input type="number" name="items[INDEX][quantity]" placeholder="5"
+                    <input type="number" name="items[INDEX][quantity]" placeholder="5" value="{{ $product->quantity }}"
                            class="w-full h-10 pl-4 pr-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
                 </div>
                 <div>

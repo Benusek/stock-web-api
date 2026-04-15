@@ -16,4 +16,13 @@ enum Unit: string
             self::KG => 'Килограмм',
         };
     }
+
+    public function unit(): string
+    {
+        return match($this) {
+            self::LITER => 'л.',
+            self::PIECE => 'шт.',
+            self::KG => 'кг.',
+        };
+    }
 }

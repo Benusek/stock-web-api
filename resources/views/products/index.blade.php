@@ -1,3 +1,8 @@
+@php use App\Models\Product; use App\Enums\Product\Type; use App\Enums\Product\Unit; @endphp
+@php
+    /** @var Product[] $products */
+@endphp
+
 @extends('layout')
 
 @section('content')
@@ -102,15 +107,17 @@
         </form>
 
         <!--Products cards-->
+
         <div class="grid grid-cols-full sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-3">
-            <div class="bg-white border border-gray-200 rounded-2xl p-4 hover:shadow-md transition flex flex-col justify-between">
+            @foreach($products as $product)
+                <div class="bg-white border border-gray-200 rounded-2xl p-4 hover:shadow-md transition flex flex-col justify-between">
                 <div class="flex justify-between items-start mb-3">
                     <div>
-                        <p class="text-lg font-semibold text-gray-900">Ром Bacardi</p>
+                        <p class="text-lg font-semibold text-gray-900">{{ $product->name }}</p>
                         <p class="text-xs text-gray-400">Продукт</p>
                     </div>
                     <div class="flex gap-2">
-                        <a href="{{ route('products.edit') }}" class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition">
+                        <a href="{{ route('products.edit', $product ) }}" class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition">
                             <i class="fa-solid fa-edit text-gray-600 text-sm"></i>
                         </a>
                         <button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-red-50 transition">
@@ -121,22 +128,24 @@
                 <div class="space-y-2 text-sm mb-4">
                     <div class="flex justify-between">
                         <span class="text-gray-500">Тип</span>
-                        <span class="text-gray-900 font-medium">Ингредиент</span>
+                        <span class="text-gray-900 font-medium">{{ Type::from($product->type)->label() }}</span>
                     </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-500">Ед. измерения</span>
-                        <span class="text-gray-900">Литр</span>
-                    </div>
+{{--                    <div class="flex justify-between">--}}
+{{--                        <span class="text-gray-500">Ед. измерения</span>--}}
+{{--                        <span class="text-gray-900">{{ Unit::from($product->unit)->label() }}</span>--}}
+{{--                    </div>--}}
                     <div class="flex justify-between">
                         <span class="text-gray-500">Остаток</span>
-                        <span class="text-gray-900 font-medium">15 л</span>
+                        <span class="text-gray-900 font-medium">{{ $product->quantity }} {{ Unit::from($product->unit)->unit() }}</span>
                     </div>
                 </div>
                 <div class="flex justify-between items-center pt-3 border-t border-gray-100 text-xs text-gray-500">
-                    <span>12.04.2026, 14:32</span>
-                    <span>Иван Иванов</span>
+                    <span>{{ $product->created_at->diffForHumans() }}</span>
+                    <span>{{ $product->user }}</span>
                 </div>
             </div>
+            @endforeach
         </div>
+
     </section>
 @endsection

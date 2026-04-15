@@ -4,22 +4,37 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    /**
+     * List of products
+     * @return Factory|View
+     */
+    public function index(): Factory|View
     {
-        return view('products.index', ['products' => Product::all()]);
+        return view('products.index', ['products' => Product::query()->orderBy('id', 'DESC')->get()]);
     }
 
-    public function create()
+    /**
+     * Create product form
+     * @return Factory|View
+     */
+    public function create(): Factory|View
     {
         return view('products.create');
     }
 
-    public function edit()
+    /**
+     * Edit product form
+     * @param Product $product
+     * @return Factory|View
+     */
+    public function edit(Product $product): Factory|View
     {
-        return view('products.edit');
+        return view('products.edit', compact('product'));
     }
 }

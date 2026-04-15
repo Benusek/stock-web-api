@@ -2,6 +2,13 @@
 
 namespace App\Enums\Supply;
 
+/**
+ * @property $value
+ * @property $name
+ *
+ * @property-read $label
+ * @property-read $classes
+ */
 enum Status: string
 {
     case COMPLETED = 'completed';

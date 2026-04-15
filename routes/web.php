@@ -11,7 +11,7 @@ Route::get('/{supply}/edit', [SupplyController::class, 'edit'])->name('supplies.
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
-Route::get('/products/edit', [ProductController::class, 'edit'])->name('products.edit');
+Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
 
 Route::get('/actions', function() {return view('actions.index');})->name('actions.index');
 

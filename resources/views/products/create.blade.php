@@ -33,7 +33,7 @@
         </form>
     </section>
 
-    @include('templates/product')
+    @include('_form/product')
+    @include('_form/multiple')
 
-    <script type="application/javascript" src="{{ asset('assets/js/multiple.js') }}"></script>
 @endsection

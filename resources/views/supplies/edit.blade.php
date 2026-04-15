@@ -1,6 +1,6 @@
 @php use App\Models\Supply; @endphp
 @php
-/** @var Supply $supply */
+    /** @var Supply $supply **/
 @endphp
 
 @extends('layout')
@@ -16,7 +16,7 @@
                 <div class="flex items-start">
                     <div class="text-right">
                         <p class="text-sm text-gray-500">Итого</p>
-                        <p class="text-xl font-semibold">24 500 ₽</p>
+                        <p class="text-xl font-semibold" id="price">0 ₽</p>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,6 @@
                         <label class="block text-xs text-gray-500 mb-1">Статус</label>
                         <select name="status"
                                 class="w-full h-10 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
-                            <option value="">Все статусы</option>
                             <option value="completed">Проведена</option>
                             <option value="canceled">Отменена</option>
                             <option value="draft">Черновик</option>
@@ -35,12 +34,7 @@
                     </div>
                     <div>
                         <label class="block text-xs text-gray-500 mb-1">Поставщик</label>
-                        <select name="supplier"
-                                class="w-full h-10 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
-                            <option value="">Все поставщики</option>
-                            <option value="1">ООО Колбасики</option>
-                            <option value="2">ООО Помидорчики</option>
-                        </select>
+                        @include('_form/supply')
                     </div>
                 </div>
             </div>
@@ -59,14 +53,14 @@
                    class="h-10 w-full md:w-min px-4 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 transition cursor-pointer flex justify-center items-center">
                     Отмена
                 </a>
-                <button class="h-10 w-full md:w-min px-4 rounded-lg border bg-blue-600 hover:bg-blue-700 text-white transition cursor-pointer flex justify-center items-center">
+                <button
+                    class="h-10 w-full md:w-min px-4 rounded-lg border bg-blue-600 hover:bg-blue-700 text-white transition cursor-pointer flex justify-center items-center">
                     Сохранить
                 </button>
             </div>
         </div>
     </section>
 
-    @include('templates/product')
-
-    <script type="application/javascript" src="{{ asset('assets/js/multiple.js') }}"></script>
+    @include('_form/product', ['price' => true, 'products' => $supply->products])
+    @include('_form.multiple', ['products' => $supply])
 @endsection
