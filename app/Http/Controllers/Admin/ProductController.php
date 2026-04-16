@@ -16,7 +16,9 @@ class ProductController extends Controller
      */
     public function index(): Factory|View
     {
-        return view('products.index', ['products' => Product::query()->orderBy('id', 'DESC')->get()]);
+        $products = Product::filter(request()->all())
+        ->orderBy('id', 'DESC')->paginate(12);
+        return view('products.index', compact('products'));
     }
 
     /**

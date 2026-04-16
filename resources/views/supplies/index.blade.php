@@ -1,7 +1,8 @@
-@php use App\Models\User;use Illuminate\Database\Eloquent\Collection;use App\Enums\Supply\Status @endphp
+@php use App\Models\Supply;use App\Models\User;use App\Enums\Supply\Status ;use Illuminate\Pagination\LengthAwarePaginator@endphp
 @php
-    /** @var Collection $supplies
+    /** @var LengthAwarePaginator|Supply[] $supplies
     *  @var User[] $users
+    * @var Status $statuses
     */
     $users = User::all();
     $statuses = Status::cases();
@@ -103,8 +104,8 @@
                 </div>
             </div>
             <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                <a href="{{ route('supplies.index') }}" type="reset"
-                        class="h-10 px-4 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 transition cursor-pointer flex items-center">
+                <a href="{{ route('supplies.index') }}"
+                   class="h-10 px-4 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 transition cursor-pointer flex items-center">
                     Сбросить
                 </a>
                 <button type="submit"
@@ -152,7 +153,8 @@
                 </div>
             @endforeach
         </div>
-
+        <div class="p-6">{{ $supplies->links('pagination') }}</div>
     </section>
+
 @endsection
 

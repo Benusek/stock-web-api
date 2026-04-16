@@ -17,6 +17,7 @@ return new class extends Migration
             $table->enum('unit', ['kg', 'liter', 'piece']);
             $table->enum('type', ['ingredient', 'finished']);
             $table->float('quantity');
+            $table->float('minimum');
             $table->timestamps();
         });
     }

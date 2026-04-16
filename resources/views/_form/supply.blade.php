@@ -1,7 +1,9 @@
+@php use App\Models\Supplier;@endphp
 @php
-    /** @var Supplier[] $suppliers
-    * @var boolean $filter**/
-    use App\Models\Supplier;
+    /**
+    * @var Supplier[] $suppliers
+    * @var boolean $filter
+    **/
     $filter = $filter ?? null;
     $suppliers = Supplier::query()->get();
 @endphp
@@ -12,6 +14,8 @@
         <option value="">Все поставщики</option>
     @endif
     @foreach($suppliers as $supplier)
-        <option value="{{ $supplier->id }}" @if($filter)  @selected(request('supplier_id') == $supplier->id) @endif>{{ $supplier->name }}</option>
+        <option value="{{ $supplier->id }}" @if($filter)
+            @selected(request('supplier_id'))
+            @endif>{{ $supplier->name }}</option>
     @endforeach
 </select>

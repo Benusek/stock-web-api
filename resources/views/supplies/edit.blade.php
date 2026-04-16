@@ -1,5 +1,7 @@
-@php use App\Models\Supply; @endphp
+@php use App\Models\Supply;use App\Enums\Supply\Status; @endphp
 @php
+    /** @var Status $statuses */
+    $statuses = Status::cases();
     /** @var Supply $supply **/
 @endphp
 
@@ -7,7 +9,7 @@
 
 @section('content')
     <section class="p-5 w-full">
-        <div class="flex flex-col bg-white border border-gray-200 rounded-2xl p-6">
+        <form action="{{ route('supplies.update', $supply) }}" method="POST" class="flex flex-col bg-white border border-gray-200 rounded-2xl p-6">
             <div class="flex justify-between items-center mb-6">
                 <div>
                     <h1 class="text-xl font-semibold">Поставка #{{ $supply->id }}</h1>
@@ -27,9 +29,10 @@
                         <label class="block text-xs text-gray-500 mb-1">Статус</label>
                         <select name="status"
                                 class="w-full h-10 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
-                            <option value="completed">Проведена</option>
-                            <option value="canceled">Отменена</option>
-                            <option value="draft">Черновик</option>
+                            @foreach($statuses as $status)
+                                <option
+                                    value="{{ $status->value }}" @selected(old('status', $supply->status) == $status->value)>{{ Status::from($status->value)->label() }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div>
@@ -58,7 +61,7 @@
                     Сохранить
                 </button>
             </div>
-        </div>
+        </form>
     </section>
 
     @include('_form/product', ['price' => true, 'products' => $supply->products])

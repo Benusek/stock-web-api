@@ -47,7 +47,7 @@
                            class="h-10 w-full md:w-min px-4 rounded-lg text-yellow-600 hover:bg-gray-50 transition cursor-pointer flex justify-center items-center">
                             <i class="fa-solid fa-edit"></i>
                         </a>
-                        <a href=""
+                        <a href="{{ route('supplies.destroy', $supply) }}"
                            class="h-10 w-full md:w-min px-4 rounded-lg text-red-600 hover:bg-red-50 transition cursor-pointer flex justify-center items-center">
                             <i class="fa-solid fa-trash"></i>
                         </a>

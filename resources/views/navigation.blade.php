@@ -11,7 +11,7 @@
         </div>
     </header>
     <input type="checkbox" class="toggle" id="toggle" hidden>
-    <nav class="md:!flex flex-col gap-3 text-white md:mt-5">
+    <nav id="nav-panel" class="md:!flex flex-col gap-3 text-white md:mt-5">
         <a href="{{ route('supplies.index') }}"
            class="flex gap-3 items-center px-3 py-2 rounded-lg hover:bg-gray-800 transition">
             <i class="fa-solid fa-truck"></i>

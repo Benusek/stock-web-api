@@ -1,8 +1,14 @@
+@php
+    use App\Enums\Supply\Status;
+    /** @var Status $statuses */
+    $statuses = Status::cases();
+@endphp
+
 @extends('layout')
 
 @section('content')
     <section class="p-5 w-full">
-        <form action="#" method="POST" novalidate
+        <form action="{{ route('supplies.store') }}" method="POST" novalidate
               class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-4">
             @csrf
             <div class="flex justify-between mb-6">
@@ -24,12 +30,16 @@
                         <label class="block text-xs text-gray-500 mb-1">Статус</label>
                         <select name="status"
                                 class="w-full h-10 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
-                            <option value="completed">Проведена</option>
-                            <option value="canceled">Отменена</option>
-                            <option value="draft">Черновик</option>
+                            @foreach($statuses as $status)
+                                <option
+                                    value="{{ $status->value }}" @selected(old('status') == $status->value)>{{ Status::from($status->value)->label() }}</option>
+                            @endforeach
                         </select>
                     </div>
-                    @include('_form/supply')
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1">Поставщик</label>
+                        @include('_form/supply')
+                    </div>
                 </div>
             </div>
             <div class="mb-6">
@@ -41,6 +51,7 @@
                     </div>
                 </div>
                 <div class="select-none" id="products"></div>
+
             </div>
             <div class="flex justify-between flex-col sm:flex-row pt-4 border-t border-gray-100 gap-2">
                 <div class="flex gap-2 justify-between">

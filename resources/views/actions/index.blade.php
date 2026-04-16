@@ -105,5 +105,6 @@
                     <span>Иван Иванов</span>
                 </div>
             </div>
+        </div>
     </section>
 @endsection

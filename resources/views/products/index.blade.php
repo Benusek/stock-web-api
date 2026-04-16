@@ -1,6 +1,6 @@
-@php use App\Models\Product; use App\Enums\Product\Type; use App\Enums\Product\Unit; @endphp
+@php use App\Models\Product; use App\Enums\Product\Type; use App\Enums\Product\Unit;use Illuminate\Pagination\LengthAwarePaginator; @endphp
 @php
-    /** @var Product[] $products */
+    /** @var Product[]|LengthAwarePaginator $products */
 @endphp
 
 @extends('layout')
@@ -17,7 +17,8 @@
                     <span class="text-sm">Фильтры</span>
                 </label>
             </div>
-            <a href="{{ route('products.create') }}" class="w-full md:w-max flex justify-center items-center font-semibold bg-green-600 text-white px-4 h-10 rounded-lg hover:bg-green-700 transition gap-2">
+            <a href="{{ route('products.create') }}"
+               class="w-full md:w-max flex justify-center items-center font-semibold bg-green-600 text-white px-4 h-10 rounded-lg hover:bg-green-700 transition gap-2">
                 <i class="fa-solid fa-plus text-white"></i>
                 <span>Добавить товары</span>
             </a>
@@ -25,14 +26,14 @@
 
         <!--Filter form-->
         <input type="checkbox" id="filter" hidden>
-        <form action="#" method="POST" novalidate
+        <form action="#" method="GET" novalidate
               class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-4 filter-menu">
             <div class="mb-6">
                 <label class="block text-sm font-medium text-gray-700 mb-1">
                     Поиск
                 </label>
                 <div class="relative">
-                    <input type="search" name="search"
+                    <input type="search" name="search" value="{{ request('search') }}"
                            placeholder="Название товара"
                            class="w-full h-11 pl-10 pr-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
                     <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
@@ -49,23 +50,23 @@
                         <select name="type"
                                 class="w-full h-10 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
                             <option value="">Все</option>
-                            <option value="1">Ингридиент</option>
-                            <option value="2">Рецепт</option>
+                            <option value="ingredient">Ингридиент</option>
+                            <option value="finished">Рецепт</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-500 mb-1">Ед.</label>
-                        <select name="type"
+                        <select name="unit"
                                 class="w-full h-10 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
                             <option value="">Все</option>
-                            <option value="1">Кусок</option>
-                            <option value="2">Литр</option>
-                            <option value="3">Киллограм</option>
+                            <option value="piece">Кусок</option>
+                            <option value="liter">Литр</option>
+                            <option value="kg">Киллограм</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-500 mb-1">Наличие</label>
-                        <select name="stock_status" class="w-full h-10 px-3 rounded-lg border border-gray-300
+                        <select name="minimum" class="w-full h-10 px-3 rounded-lg border border-gray-300
                        focus:ring-2 focus:ring-blue-500 outline-none">
                             <option value="">Все</option>
                             <option value="ok">В наличии</option>
@@ -81,11 +82,11 @@
                     <div>
                         <label class="block text-xs text-gray-500 mb-1">Количество</label>
                         <div class="flex gap-2">
-                            <input type="number" name="min_stock"
+                            <input type="number" name="min_quantity"
                                    placeholder="От"
                                    class="w-full h-10 px-3 rounded-lg border border-gray-300
                         focus:ring-2 focus:ring-blue-500 outline-none">
-                            <input type="number" name="max_stock"
+                            <input type="number" name="max_quantity"
                                    placeholder="До"
                                    class="w-full h-10 px-3 rounded-lg border border-gray-300
                         focus:ring-2 focus:ring-blue-500 outline-none">
@@ -94,10 +95,10 @@
                 </div>
             </div>
             <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                <button type="reset"
-                        class="h-10 px-4 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 transition cursor-pointer">
+                <a href="{{ route('products.index') }}"
+                        class="h-10 px-4 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 transition cursor-pointer flex items-center">
                     Сбросить
-                </button>
+                </a>
 
                 <button type="submit"
                         class="h-10 px-6 rounded-lg bg-gray-600 text-white hover:bg-gray-700 transition shadow-sm cursor-pointer">
@@ -107,45 +108,43 @@
         </form>
 
         <!--Products cards-->
-
         <div class="grid grid-cols-full sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-3">
             @foreach($products as $product)
                 <div class="bg-white border border-gray-200 rounded-2xl p-4 hover:shadow-md transition flex flex-col justify-between">
-                <div class="flex justify-between items-start mb-3">
-                    <div>
-                        <p class="text-lg font-semibold text-gray-900">{{ $product->name }}</p>
-                        <p class="text-xs text-gray-400">Продукт</p>
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <p class="text-lg font-semibold text-gray-900">{{ $product->name }}</p>
+                            <p class="text-xs text-gray-400">Продукт</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="{{ route('products.edit', $product ) }}"
+                               class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition">
+                                <i class="fa-solid fa-edit text-gray-600 text-sm"></i>
+                            </a>
+                            <button
+                                class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-red-50 transition">
+                                <i class="fa-solid fa-trash text-red-500 text-sm"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="flex gap-2">
-                        <a href="{{ route('products.edit', $product ) }}" class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition">
-                            <i class="fa-solid fa-edit text-gray-600 text-sm"></i>
-                        </a>
-                        <button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-red-50 transition">
-                            <i class="fa-solid fa-trash text-red-500 text-sm"></i>
-                        </button>
+                    <div class="space-y-2 text-sm mb-4">
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">Тип</span>
+                            <span class="text-gray-900 font-medium">{{ Type::from($product->type)->label() }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">Остаток</span>
+                            <span
+                                class="text-gray-900 font-medium">{{ $product->quantity }} {{ Unit::from($product->unit)->unit() }}</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center pt-3 border-t border-gray-100 text-xs text-gray-500">
+                        <span>{{ $product->created_at->diffForHumans() }}</span>
+                        <span>{{ $product->user }}</span>
                     </div>
                 </div>
-                <div class="space-y-2 text-sm mb-4">
-                    <div class="flex justify-between">
-                        <span class="text-gray-500">Тип</span>
-                        <span class="text-gray-900 font-medium">{{ Type::from($product->type)->label() }}</span>
-                    </div>
-{{--                    <div class="flex justify-between">--}}
-{{--                        <span class="text-gray-500">Ед. измерения</span>--}}
-{{--                        <span class="text-gray-900">{{ Unit::from($product->unit)->label() }}</span>--}}
-{{--                    </div>--}}
-                    <div class="flex justify-between">
-                        <span class="text-gray-500">Остаток</span>
-                        <span class="text-gray-900 font-medium">{{ $product->quantity }} {{ Unit::from($product->unit)->unit() }}</span>
-                    </div>
-                </div>
-                <div class="flex justify-between items-center pt-3 border-t border-gray-100 text-xs text-gray-500">
-                    <span>{{ $product->created_at->diffForHumans() }}</span>
-                    <span>{{ $product->user }}</span>
-                </div>
-            </div>
             @endforeach
         </div>
-
+        <div class="p-6">{{ $products->links('pagination') }}</div>
     </section>
 @endsection

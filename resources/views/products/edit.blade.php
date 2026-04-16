@@ -22,17 +22,17 @@
             <div class="grid grid-cols-full sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                 <div>
                     <label class="block text-xs text-gray-500 mb-1">Название</label>
-                    <input type="text" name="items[INDEX][name]" placeholder="Сыр" value="{{ $product->name }}"
+                    <input type="text" name="name" placeholder="Сыр" value="{{ $product->name }}"
                            class="w-full h-10 pl-4 pr-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
                 </div>
                 <div>
                     <label class="block text-xs text-gray-500 mb-1">Кол-во</label>
-                    <input type="number" name="items[INDEX][quantity]" placeholder="5" value="{{ $product->quantity }}"
+                    <input type="number" name="quantity" placeholder="5" value="{{ $product->quantity }}"
                            class="w-full h-10 pl-4 pr-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
                 </div>
                 <div>
                     <label class="block text-xs text-gray-500 mb-1">Ед.</label>
-                    <select name="items[INDEX][unit]"
+                    <select name="unit"
                             class="w-full h-10 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
                         <option value="liter">Литр</option>
                         <option value="piece">Кусок</option>
@@ -41,7 +41,7 @@
                 </div>
                 <div>
                     <label class="block text-xs text-gray-500 mb-1">Тип</label>
-                    <select name="items[INDEX][type]"
+                    <select name="type"
                             class="w-full h-10 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
                         <option value="ingredient">Ингридиент</option>
                         <option value="completed">Готовый</option>
@@ -50,7 +50,7 @@
             </div>
             <div class="mb-6">
                 <span class="block text-sm font-medium text-gray-700 mb-2">Минимальный остаток</span>
-                <input type="number" placeholder="5" name="min-quantity"
+                <input type="number" placeholder="5" name="minimum"
                        class="w-full h-10 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
             </div>
 
