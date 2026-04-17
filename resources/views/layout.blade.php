@@ -9,7 +9,7 @@
     <title>Stock</title>
 </head>
 <body class="md:flex min-h-screen bg-gray-50">
-    @include('navigation')
+    @if(auth()->guard('web')->check()) @include('navigation') @endif
     <main class="w-full">
         @yield('content')
     </main>

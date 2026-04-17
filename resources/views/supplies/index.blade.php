@@ -1,9 +1,10 @@
-@php use App\Models\Supply;use App\Models\User;use App\Enums\Supply\Status ;use Illuminate\Pagination\LengthAwarePaginator@endphp
+@php use App\Models\Supplier;use App\Models\Supply;use App\Models\User;use App\Enums\Supply\Status ;use Illuminate\Pagination\LengthAwarePaginator@endphp
 @php
-    /** @var LengthAwarePaginator|Supply[] $supplies
-    *  @var User[] $users
-    * @var Status $statuses
-    */
+    /** @var LengthAwarePaginator|Supply[] $supplies */
+    /** @var User[] $users */
+    /** @var Status $statuses */
+    /** @var Supplier[] $suppliers **/
+    $suppliers = Supplier::all();
     $users = User::all();
     $statuses = Status::cases();
 @endphp
@@ -22,9 +23,8 @@
                     <span class="text-sm">Фильтры</span>
                 </label>
             </div>
-            <a href="{{ route('supplies.create') }}"
-               class="w-full md:w-max flex justify-center items-center font-semibold bg-green-600 text-white px-4 h-10 rounded-lg hover:bg-green-700 transition gap-2">
-                <i class="fa-solid fa-plus text-white"></i>
+            <a href="{{ route('supplies.create') }}" class="flex items-center gap-2 h-10 px-4 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition">
+                <i class="fa-solid fa-plus text-sm"></i>
                 <span>Добавить поставку</span>
             </a>
         </div>
@@ -67,15 +67,18 @@
                                 class="w-full h-10 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
                             <option value="">Все статусы</option>
                             @foreach($statuses as $status)
-                                <option
-                                    value="{{ $status->value }}" @selected(request('status') == $status->value)>{{ Status::from($status->value)->label() }}</option>
+                                <option value="{{ $status->value }}" @selected(request('status') == $status->value)>{{ Status::from($status->value)->label() }}</option>
                             @endforeach
-
                         </select>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-500 mb-1">Поставщик</label>
-                        @include('_form/supply', ['filter' => true])
+                        <select name="supplier_id" class="w-full h-10 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+                            <option value="">Все поставщики</option>
+                            @foreach($suppliers as $supplier)
+                                <option value="{{ $supplier->id }}" @selected(old('supplier_id') == $supplier->id || old('supplier_id') == $supplier->id)>{{ $supplier->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-500 mb-1">
@@ -117,6 +120,10 @@
 
         <!--Supplies cards-->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+            @if(count($supplies) < 1)
+                <p class="col-span-full text-sm font-semibold">К сожалению по запросу ничего не найдено</p>
+                <p class="col-span-full text-sm font-semibold">Хотите <a href="{{ route('supplies.create') }}" class="text-blue-500 border-b border-blue-500">добавить</a> запись?</p>
+            @endif
             @foreach($supplies as $supply)
                 <div class="bg-white border border-gray-200 rounded-2xl p-4 hover:shadow-md transition">
                     <div class="flex justify-between items-start mb-3">

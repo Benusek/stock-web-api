@@ -17,10 +17,9 @@
                     <span class="text-sm">Фильтры</span>
                 </label>
             </div>
-            <a href="{{ route('products.create') }}"
-               class="w-full md:w-max flex justify-center items-center font-semibold bg-green-600 text-white px-4 h-10 rounded-lg hover:bg-green-700 transition gap-2">
-                <i class="fa-solid fa-plus text-white"></i>
-                <span>Добавить товары</span>
+            <a href="{{ route('products.create') }}" class="flex items-center gap-2 h-10 px-4 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition">
+                <i class="fa-solid fa-plus text-sm"></i>
+                <span>Добавить товар</span>
             </a>
         </div>
 
@@ -117,14 +116,14 @@
                             <p class="text-xs text-gray-400">Продукт</p>
                         </div>
                         <div class="flex gap-2">
-                            <a href="{{ route('products.edit', $product ) }}"
-                               class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition">
-                                <i class="fa-solid fa-edit text-gray-600 text-sm"></i>
+                            <a href="{{ route('products.edit', $product) }}"
+                               class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-yellow-50 transition text-gray-800 hover:text-yellow-800">
+                                <i class="fa-solid fa-edit text-sm"></i>
                             </a>
-                            <button
-                                class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-red-50 transition">
-                                <i class="fa-solid fa-trash text-red-500 text-sm"></i>
-                            </button>
+                            <a href="{{ route('products.destroy', $product) }}"
+                                class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-red-50 transition text-gray-800 hover:text-red-800">
+                                <i class="fa-solid fa-trash text-sm"></i>
+                            </a>
                         </div>
                     </div>
                     <div class="space-y-2 text-sm mb-4">

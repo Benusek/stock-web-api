@@ -142,6 +142,13 @@ return [
         'products.*.product_id' => 'товар',
         'products.*.quantity' => 'количество',
         'products.*.price' => 'цена',
+        'name' => 'название',
+        'quantity' => 'количество',
+        'minimum' => 'минимальный остаток',
+        'email' => 'почта',
+        'password' => 'пароль',
+        'status' => 'статус',
+        'supplier_id' => 'поставщик'
     ],
 
 ];

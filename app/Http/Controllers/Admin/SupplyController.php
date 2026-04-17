@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateSupplyRequest;
 use App\Models\Supply;
-use App\Models\SupplyProducts;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -46,6 +45,19 @@ class SupplyController extends Controller
     }
 
     /**
+     * Edit supply
+     * @param CreateSupplyRequest $request
+     * @param Supply $supply
+     * @return RedirectResponse
+     */
+    public function update(CreateSupplyRequest $request, Supply  $supply): RedirectResponse
+    {
+        $supply->update($request->validated());
+        $supply->products()->sync($request->validated('products'));
+        return redirect()->route('supplies.show', $supply);
+    }
+
+    /**
      * Create supply form
      * @return Factory|View
      */
@@ -61,7 +73,7 @@ class SupplyController extends Controller
      */
     public function store(CreateSupplyRequest $request): RedirectResponse
     {
-        $supply = Supply::query()->create($request->validated() + ['user_id' => 1]);
+        $supply = Supply::query()->create($request->validated() + ['user_id' => $request->user()->id]);
         $supply->products()->attach($request->validated('products'));
         return redirect()->route('supplies.index');
     }
@@ -76,13 +88,5 @@ class SupplyController extends Controller
     {
         $supply->delete();
         return redirect()->route('supplies.index');
-    }
-
-
-    public function update(CreateSupplyRequest $request, Supply  $supply): RedirectResponse
-    {
-        $supply->update($request->validated());
-        $supply->products()->sync($request->validated('products'));
-        return redirect()->route('supplies.show', $supply);
     }
 }

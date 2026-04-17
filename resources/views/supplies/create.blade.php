@@ -23,36 +23,7 @@
                     </div>
                 </div>
             </div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Основное</label>
-            <div class="mb-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
-                    <div>
-                        <label class="block text-xs text-gray-500 mb-1">Статус</label>
-                        <select name="status"
-                                class="w-full h-10 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
-                            @foreach($statuses as $status)
-                                <option
-                                    value="{{ $status->value }}" @selected(old('status') == $status->value)>{{ Status::from($status->value)->label() }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs text-gray-500 mb-1">Поставщик</label>
-                        @include('_form/supply')
-                    </div>
-                </div>
-            </div>
-            <div class="mb-6">
-                <div class="flex justify-between">
-                    <p class="block text-sm font-medium text-gray-700 mb-2">Товары</p>
-                    <div class="select-none">
-                        <i class="text-sm text-gray-700 fa-solid fa-plus cursor-pointer" onclick="addProduct()"></i>
-                        <i class="text-sm text-gray-700 fa-solid fa-minus cursor-pointer" onclick="removeProduct()"></i>
-                    </div>
-                </div>
-                <div class="select-none" id="products"></div>
-
-            </div>
+            @include('_form/supplies')
             <div class="flex justify-between flex-col sm:flex-row pt-4 border-t border-gray-100 gap-2">
                 <div class="flex gap-2 justify-between">
                     <a href="{{ route('supplies.index') }}"
@@ -71,7 +42,4 @@
             </div>
         </form>
     </section>
-
-    @include('_form.product', ['price' => true])
-    @include('_form.multiple')
 @endsection

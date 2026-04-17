@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('actions', function (Blueprint $table) {
+        Schema::create('writeoffs', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
-            $table->morphs('actionable');
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->decimal('amount', 10, 2)->nullable();
-            $table->text('comment')->nullable();
+            $table->string('comment');
+            $table->enum('reason', ['error', 'old', 'crashed']);
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('actions');
+        Schema::dropIfExists('writeoffs');
     }
 };
