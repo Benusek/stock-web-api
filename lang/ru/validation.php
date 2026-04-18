@@ -148,7 +148,9 @@ return [
         'email' => 'почта',
         'password' => 'пароль',
         'status' => 'статус',
-        'supplier_id' => 'поставщик'
+        'supplier_id' => 'поставщик',
+        'comment' => 'комментарий',
+        'reason' => 'причина'
     ],
 
 ];

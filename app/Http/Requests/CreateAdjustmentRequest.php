@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateActionRequest extends FormRequest
+class CreateAdjustmentRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -16,10 +16,10 @@ class CreateActionRequest extends FormRequest
     {
         return [
             'comment' => 'required|string',
-            'reason' => 'required|in:error,old,crashed',
+            'reason' => 'required|in:error,inventory',
             'products' => 'required|array|min:1',
             'products.*.product_id' => 'required|exists:products,id|distinct',
-            'products.*.quantity' => 'required|integer|min:1|max:9999',
+            'products.*.quantity' => 'required|integer|min:-9999|max:9999',
         ];
     }
 }

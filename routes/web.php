@@ -30,5 +30,5 @@ Route::middleware(['auth:web'])->group(function () {
     Route::get('/write-off/create', [ActionController::class, 'trashes'])->name('trashes.create');
     Route::post('/write-off/create', [ActionController::class, 'trashes_store'])->name('trashes.store');
     Route::get('/adjustments/create', [ActionController::class, 'adjustments'])->name('adjustments.create');
-    Route::post('/adjustments/create', [ActionController::class, 'trashes_store'])->name('trashes.store');
+    Route::post('/adjustments/create', [ActionController::class, 'adjustments_store'])->name('adjustments.store');
 });

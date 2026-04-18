@@ -28,6 +28,12 @@ class Writeoff extends Model
      */
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'adjustment_products', 'adjustment_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'writeoff_products')
+            ->withPivot('quantity');
+    }
+
+    public function action()
+    {
+        return $this->morphOne(Action::class, 'actionable');
     }
 }

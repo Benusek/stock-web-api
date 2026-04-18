@@ -7,91 +7,88 @@
 @extends('layout')
 
 @section('content')
-    <section class="p-6">
-        <form action="" method="POST" class="bg-white rounded-2xl border border-gray-200 p-6 max-w-4xl" novalidate>
+    <section class="p-6 flex justify-center">
+        <form action="{{ route('adjustments.store') }}" method="POST" novalidate
+              class="bg-white rounded-2xl border border-gray-200 p-6 w-full max-w-4xl">
 
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-lg font-semibold">Корректировка остатков</h2>
+            @csrf
 
-                <button type="button" onclick="addProduct()"
-                        class="flex items-center gap-2 h-9 px-3 text-sm bg-gray-800 text-white rounded-lg hover:bg-gray-900">
-                    <i class="fa-solid fa-plus"></i>
-                    Добавить товар
-                </button>
-            </div>
-            <div id="products" class="space-y-3">
-                <div class="grid grid-cols-12 gap-3 items-center product-row">
-                    <div class="col-span-4">
-                        <select class="w-full h-10 px-3 border border-gray-300 rounded-lg">
-                            <option>Выберите товар</option>
-                        </select>
-                    </div>
-                    <div data-quantity="2" class="col-span-3 text-sm text-gray-500">
-                        10 кг
-                    </div>
-                    <div class="col-span-3">
-                        <input type="number"
-                               class="w-full h-10 px-3 border border-gray-300 rounded-lg actual-input"
-                               placeholder="Факт">
-                    </div>
-                    <div class="col-span-1 text-sm font-medium delta">
-                        0
-                    </div>
-                    <div class="col-span-1 text-right">
-                        <button type="button" class="text-gray-400 hover:text-red-500">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div id="products"></div>
-            <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <h2 class="text-lg font-semibold mb-6">Корректировка</h2>
+
+            <!-- Основные поля -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+
                 <div>
-                    <label class="text-sm text-gray-600">Причина</label>
-                    <select class="w-full h-10 px-3 border border-gray-300 rounded-lg">
-                        <option>Инвентаризация</option>
-                        <option>Ошибка учета</option>
+                    <label class="block text-xs text-gray-500 mb-1">Причина</label>
+
+                    <select name="reason"
+                            class="w-full h-10 px-3 border rounded-lg border-gray-300">
+
+                        <option value="">Выберите причину</option>
+                        <option value="inventory" {{ old('reason') == 'inventory' ? 'selected' : '' }}>
+                            Инвентаризация
+                        </option>
+                        <option value="error" {{ old('reason') == 'error' ? 'selected' : '' }}>
+                            Ошибка учета
+                        </option>
                     </select>
+
+                    @error('reason')
+                    <p data-error="product_id" class="text-red-900 text-sm">{{ $message }}</p>
+                    @enderror
                 </div>
+
                 <div>
-                    <label class="text-sm text-gray-600">Комментарий</label>
+                    <label class="block text-xs text-gray-500 mb-1">Комментарий</label>
+
                     <input type="text"
-                           class="w-full h-10 px-3 border border-gray-300 rounded-lg">
+                           name="comment"
+                           value="{{ old('comment') }}"
+                           placeholder="Комментарий"
+                           class="w-full h-10 px-3 border rounded-lg
+                       border-gray-300">
+
+                    @error('comment')
+                    <p data-error="product_id" class="text-red-900 text-sm">{{ $message }}</p>
+                    @enderror
+                </div>
+
+            </div>
+
+            <!-- Заголовок товаров -->
+            <div class="flex justify-between items-center mb-2">
+                <p class="text-sm font-medium text-gray-700">Товары</p>
+
+                <div class="flex gap-3 select-none">
+                    <i class="fa-solid fa-plus cursor-pointer text-gray-600 hover:text-black"
+                       onclick="addProduct()"></i>
+                    <i class="fa-solid fa-minus cursor-pointer text-gray-600 hover:text-black"
+                       onclick="removeProduct()"></i>
                 </div>
             </div>
+
+
+
+            <div id="products"></div>
+
+            <!-- Кнопки -->
             <div class="flex justify-between mt-6 pt-4 border-t border-gray-100">
-                <button type="reset"
-                        class="h-10 px-4 border border-gray-300 rounded-lg text-gray-600">
+
+                <a href="{{ route('actions.index') }}"
+                   class="h-10 px-4 border border-gray-300 rounded-lg text-gray-600 flex items-center">
                     Отмена
-                </button>
+                </a>
+
                 <button type="submit"
                         class="h-10 px-6 bg-gray-800 text-white rounded-lg hover:bg-gray-900">
                     Применить
                 </button>
+
             </div>
+
         </form>
+        @include('_form/actions')
     </section>
 @endsection
-{{--<script>--}}
-{{--    document.addEventListener('input', function (e) {--}}
-{{--        if (e.target.classList.contains('actual-input')) {--}}
-{{--            const row = e.target.closest('.product-row');--}}
 
-{{--            const stock = parseFloat(row.dataset.quantity); // текущий остаток--}}
-{{--            const actual = parseFloat(e.target.value || 0);--}}
 
-{{--            console.log(stock)--}}
-{{--            const delta = actual - stock;--}}
-
-{{--            const deltaEl = row.querySelector('.delta');--}}
-
-{{--            deltaEl.textContent = delta;--}}
-
-{{--            // цвет--}}
-{{--            deltaEl.classList.toggle('text-red-500', delta < 0);--}}
-{{--            deltaEl.classList.toggle('text-green-600', delta > 0);--}}
-{{--        }--}}
-{{--    });--}}
-{{--</script>--}}
-
-@include('_form/actions')

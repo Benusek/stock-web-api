@@ -15,13 +15,15 @@
                     <option value="{{ $product->id }}">{{ $product->name }}</option>
                 @endforeach
             </select>
+            <p data-error="product_id" class="text-red-900 text-sm"></p>
         </div>
-        <div class="">
+        <div>
             <label class="block text-xs text-gray-500 mb-1">Кол-во</label>
             <div class="flex flex-row justify-around items-center">
                 <input type="number" min="1"  name="products[INDEX][quantity]" placeholder="5"
                        class="w-full h-10 px-3 border border-gray-300 rounded-lg">
             </div>
+            <p data-error="quantity" class="text-red-900 text-sm"></p>
         </div>
     </div>
 </template>
@@ -43,12 +45,13 @@
         const html = template.replaceAll('INDEX', productIndex)
 
         products.insertAdjacentHTML('beforeend', html)
-        // const row = products.lastElementChild
+        const row = products.lastElementChild
 
         if (data) {
+
             row.querySelector('[name="products[' + productIndex + '][product_id]"]').value = data['product_id'] ?? ''
             row.querySelector('[name="products[' + productIndex + '][quantity]"]').value = data['quantity']
-            row.querySelector('[name="products[' + productIndex + '][price]"]').value = data['price']
+            if (row.querySelector('[name="products[' + productIndex + '][price]"]')) {row.querySelector('[name="products[' + productIndex + '][price]"]').value = data['price']}
         }
 
         productIndex++
@@ -61,14 +64,14 @@
         productIndex--
     }
 
-    function changeEvent() {
-        products.querySelectorAll('div.grid').forEach((row) => {
-            row.querySelector("#trash").addEventListener('click', function () {
-                row.remove()
-                productIndex--
-            })
-        })
-    }
+    // function changeEvent() {
+    //     products.querySelectorAll('div.grid').forEach((row) => {
+    //         row.querySelector("#trash").addEventListener('click', function () {
+    //             row.remove()
+    //             productIndex--
+    //         })
+    //     })
+    // }
 
     function applyErrors() {
         const errors = window.LaravelErrors || {};

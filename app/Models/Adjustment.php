@@ -28,6 +28,7 @@ class Adjustment extends Model
      */
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'adjustment_products', 'adjustment_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'adjustment_products')
+            ->withPivot('quantity');
     }
 }
